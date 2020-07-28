@@ -19,21 +19,102 @@ extra-source-files:
 # common to point users to the README.md file.
 description:         Please see the README on GitHub at <https://github.com/githubuser/nn-crawl#readme>
 
+ghc-options:
+- -Wall
+- -fno-warn-unused-imports
+
+default-extensions:
+- AutoDeriveTypeable
+- BangPatterns
+- BinaryLiterals
+- ConstraintKinds
+- DataKinds
+- DefaultSignatures
+- DeriveDataTypeable
+- DeriveFoldable
+- DeriveFunctor
+- DeriveGeneric
+- DeriveTraversable
+- DoAndIfThenElse
+- EmptyDataDecls
+- ExistentialQuantification
+- FlexibleContexts
+- FlexibleInstances
+- FunctionalDependencies
+- GADTs
+- GeneralizedNewtypeDeriving
+- InstanceSigs
+- KindSignatures
+- LambdaCase
+- MonadFailDesugaring
+- MultiParamTypeClasses
+- MultiWayIf
+- NamedFieldPuns
+- OverloadedStrings
+- PartialTypeSignatures
+- PatternGuards
+- PolyKinds
+- RankNTypes
+- RecordWildCards
+- ScopedTypeVariables
+- StandaloneDeriving
+- TupleSections
+- TypeFamilies
+- TypeSynonymInstances
+- ViewPatterns
+
 dependencies:
-- base >= 4.7 && < 5
+- base-noprelude >= 4.7 && < 5
 - streamly
 - relude
 - req
 - uri-bytestring
 - path
+- interpolate
+- lens
+- retry
+- scalpel
+- path-io
+- containers
+- aeson
+- bytestring
+- exceptions
+- tagsoup
 
 library:
   source-dirs: src
 
 executables:
-  nn-crawl-exe:
+  download-pages:
     main:                Main.hs
-    source-dirs:         app
+    source-dirs:         app/download-pages
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - nn-crawl
+  gather-links:
+    main:                Main.hs
+    source-dirs:         app/gather-links
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - nn-crawl
+  download-articles:
+    main:                Main.hs
+    source-dirs:         app/download-articles
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - nn-crawl
+  strip-articles:
+    main:                Main.hs
+    source-dirs:         app/strip-articles
     ghc-options:
     - -threaded
     - -rtsopts
@@ -51,3 +132,4 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - nn-crawl
+    - HUnit
