@@ -2,3 +2,4 @@
 nn-crawl.cabal
 *~
 data/
+.stack-work*/
